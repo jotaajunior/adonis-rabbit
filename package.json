@@ -1,7 +1,6 @@
 {
   "name": "adonis-rabbit",
   "version": "0.0.0",
-  "private": true,
   "types": "build/adonis-typings/index.d.ts",
   "main": "build/providers/RabbitProvider.js",
   "scripts": {
