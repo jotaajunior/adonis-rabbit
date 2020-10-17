@@ -133,7 +133,7 @@ Consume a message from a queue.
 1. `queueName`: the name of the queue
 2. `onMessage` the callback which will be executed on the message receive.
 
-The `onMessage` callback receives a `Message` instance as parameter. 
+The `onMessage` callback receives a <a href="#message">`Message`</a> instance as parameter. 
 
 #### `ackAll()`
 
@@ -159,11 +159,13 @@ Parameters:
 Closes the Channel.
 
 
-#### `closeConnection`
+#### `closeConnection()`
 
 Closes the connection.
 
-### Messsage
+---
+
+### Message
 
 #### `content`
 
@@ -233,5 +235,5 @@ Parameters:
 
 ## Roadmap
 
-- [  ] Add SSL options in `config/rabbit.ts`
-- [  ] Tests
+- [ ] Add SSL options in `config/rabbit.ts`
+- [ ] Tests
