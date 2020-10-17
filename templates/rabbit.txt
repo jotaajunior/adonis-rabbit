@@ -1,0 +1,14 @@
+import Env from '@ioc:Adonis/Core/Env'
+import { RabbitConfig } from '@ioc:Adonis/Addons/Rabbit'
+
+const rabbitConfig: RabbitConfig = {
+  hostname: Env.get('RABBIT_HOSTNAME', 'localhost') as string,
+
+  user: Env.get('RABBIT_USER') as string,
+
+  password: Env.get('RABBIT_PASSWORD') as string,
+
+  port: Number(Env.get('RABBIT_PORT', 5672)),
+}
+
+export default rabbitConfig
