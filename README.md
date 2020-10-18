@@ -6,7 +6,7 @@ RabbitMQ provider for Adonis v5, it's a wrapper using [amqplib](https://github.c
 
 ### Install
 
-Install `adonis-rabbit` and `amqplib`.
+Install `adonis-rabbit`.
 
 ```
 yarn add adonis-rabbit
@@ -181,7 +181,7 @@ Returns the message content.
 message.jsonContent
 ```
 
-If the message is expected to be in JSON format, then you can use `message.jsonContent` to get the message parsed as an objerct.
+If the message is expected to be in JSON format, then you can use `message.jsonContent` to get the message parsed as an object.
 
 #### `fields`
 

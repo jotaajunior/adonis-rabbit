@@ -1,6 +1,8 @@
 {
   "name": "adonis-rabbit",
-  "version": "0.0.0",
+  "description": "AdonisJS RabbitMQ provider",
+  "version": "0.0.1",
+  "author": "Jota Júnior <jjunior@protonmail.ch>",
   "types": "build/adonis-typings/index.d.ts",
   "main": "build/providers/RabbitProvider.js",
   "scripts": {
@@ -10,12 +12,12 @@
   },
   "peerDependencies": {
     "@adonisjs/core": ">=5.0",
-    "amqplib": "^0.6.0"
+    "amqplib": "^0.6.0",
+    "@types/amqplib": "^0.5.14"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^2.0.0",
     "@adonisjs/sink": "^3.0.2",
-    "@types/amqplib": "^0.5.14",
     "adonis-preset-ts": "^1.0.4",
     "copyfiles": "^2.4.0",
     "eslint": "^7.11.0",
@@ -29,6 +31,7 @@
     "@adonisjs/core": "5.0.0-preview-rc-1.12",
     "@adonisjs/fold": "^6.0.0",
     "amqplib": "^0.6.0",
+    "@types/amqplib": "^0.5.14",
     "proxy-addr": "^2.0.6",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.19"
@@ -39,5 +42,6 @@
     "providers": [
       "adonis-rabbit"
     ]
-  }
+  },
+  "repository": "https://github.com/jotaajunior/adonis-rabbit.git"
 }
