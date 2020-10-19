@@ -1,5 +1,6 @@
-import { MessageContract } from '@ioc:Adonis/Addons/Rabbit'
 import { Channel, ConsumeMessage } from 'amqplib'
+
+import { MessageContract } from '@ioc:Adonis/Addons/Rabbit'
 
 import NullMessageException from '../Exceptions/NullMessageException'
 
