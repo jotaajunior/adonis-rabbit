@@ -1,11 +1,15 @@
 import { Channel, Options } from 'amqplib'
 
-import { RabbitConfig } from '@ioc:Adonis/Addons/Rabbit'
+import {
+  RabbitConfig,
+  RabbitManagerContract,
+} from '@ioc:Adonis/Addons/Rabbit'
 
 import { ConnectionManager } from '../ConnectionManager'
 import Message from '../Messsage'
+import safeStringify from '../Utils/safeStringify'
 
-export default class RabbitManager {
+export default class RabbitManager implements RabbitManagerContract {
   /**
    * The Connection Manager
    */
@@ -35,7 +39,7 @@ export default class RabbitManager {
       ? content
       : Buffer.from(
         typeof content === 'object'
-          ? JSON.stringify(content)
+          ? safeStringify(content)
           : content
       )
   }
