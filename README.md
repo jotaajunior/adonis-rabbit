@@ -20,9 +20,9 @@ node ace invoke adonis-rabbit
 
 ### Configuration
 
-After installing and invoking Adonis RabbitMQ, your `tsconfig.json`, `.adonisrc.json` will be modified. Also, `config/rabbit.ts` will be created.
+After installing and invoking Adonis RabbitMQ, your `tsconfig.json`, `.adonisrc.json`, `.env` and `.env.example` will be modified. Also, `config/rabbit.ts` will be created.
 
-Please certify that the data in `config/rabbit.ts` is correct.
+Please certify that the data in `.env` and `config/rabbit.ts` is correct.
 
 ## Usage
 
