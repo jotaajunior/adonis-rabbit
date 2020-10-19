@@ -1,5 +1,4 @@
 import { IocContract } from '@adonisjs/fold'
-
 import { RabbitConfig, RabbitManagerContract } from '@ioc:Adonis/Addons/Rabbit'
 
 import RabbitManager from '../src/RabbitManager'
@@ -30,10 +29,12 @@ export default class RabbitProvider {
     /**
      * Gracefully closes the channel
      */
-    this.container.with(['Adonis/Addons/Rabbit'], (rabbit: RabbitManagerContract) => {
-      rabbit
-        .closeChannel()
-        .then(() => rabbit.closeConnection())
-    })
+    this
+      .container
+      .with(['Adonis/Addons/Rabbit'], (rabbit: RabbitManagerContract) => {
+        rabbit
+          .closeChannel()
+          .then(() => rabbit.closeConnection())
+      })
   }
 }
