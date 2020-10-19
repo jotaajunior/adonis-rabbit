@@ -121,18 +121,47 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
     closeConnection(): Promise<void>
   }
   export interface MessageContract {
+    /**
+     * Acknowledge the message
+     *
+     * @param allUpTo Acknowledge all the messages up to this
+     */
     ack(upToAll?): void
 
+    /**
+     * Rejects the message
+     *
+     * @param allUpTo Acknowledge all the messages up to this
+     * @param requeue Adds back to the queue
+     */
     nack(allUpTo?, requeue?): void
 
+    /**
+     * Rejects the message. Equivalent to nack, but worker in older
+     * versions of RabbitMQ, where nack does not
+     *
+     * @param requeue Adds back to the queue
+     */
     reject(requeue?): void
 
+    /**
+     * The message content
+     */
     content: string
 
+    /**
+     * The parsed message as JSON object
+     */
     jsonContent: Object
 
+    /**
+     * The message fields
+     */
     fields: MessageFields
 
+    /**
+     * The message properties
+     */
     properties: MessageProperties
   }
 
@@ -164,7 +193,7 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
     port: number
   }
 
-  const rabbit: RabbitManagerContract
+  const Rabbit: RabbitManagerContract
 
-  export default rabbit
+  export default Rabbit
 }
