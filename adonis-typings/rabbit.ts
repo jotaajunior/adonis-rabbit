@@ -105,9 +105,9 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
      * @param queueName O nome da fila
      * @param onMessage O listener
      */
-    consumeFrom(
+    consumeFrom<T extends object = any>(
       queueName: string,
-      onMessage: (msg: MessageContract) => Promise<void>
+      onMessage: (msg: MessageContract<T>) => void | Promise<void>
     ): Promise<Replies.Consume>
 
     /**
@@ -120,13 +120,13 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
      */
     closeConnection(): Promise<void>
   }
-  export interface MessageContract {
+  export interface MessageContract<T extends object = any> {
     /**
      * Acknowledge the message
      *
      * @param allUpTo Acknowledge all the messages up to this
      */
-    ack(upToAll?): void
+    ack(allUpTo?): void
 
     /**
      * Rejects the message
@@ -152,7 +152,7 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
     /**
      * The parsed message as JSON object
      */
-    jsonContent: Object
+    jsonContent: T
 
     /**
      * The message fields

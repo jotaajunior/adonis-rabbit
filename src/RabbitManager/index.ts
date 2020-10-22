@@ -1,6 +1,7 @@
 import { Channel, Options } from 'amqplib'
 
 import {
+  MessageContract,
   RabbitConfig,
   RabbitManagerContract,
 } from '@ioc:Adonis/Addons/Rabbit'
@@ -178,9 +179,9 @@ export default class RabbitManager implements RabbitManagerContract {
    * @param queueName O nome da fila
    * @param onMessage O listener
    */
-  public async consumeFrom(
+  public async consumeFrom<T extends object = any>(
     queueName: string,
-    onMessage: (msg: Message) => void | Promise<void>
+    onMessage: (msg: MessageContract<T>) => void | Promise<void>
   ) {
     const channel = await this.getChannel()
 

@@ -4,7 +4,7 @@ import { MessageContract } from '@ioc:Adonis/Addons/Rabbit'
 
 import NullMessageException from '../Exceptions/NullMessageException'
 
-export default class Message implements MessageContract {
+export default class Message<T extends object = any> implements MessageContract {
   public message: ConsumeMessage
 
   constructor(
@@ -62,7 +62,7 @@ export default class Message implements MessageContract {
    * The parsed message as JSON object
    */
   public get jsonContent() {
-    return JSON.parse(this.content)
+    return JSON.parse(this.content) as T
   }
 
   /**
