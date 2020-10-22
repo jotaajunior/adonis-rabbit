@@ -4,7 +4,7 @@ import { RabbitConfig } from '@ioc:Adonis/Addons/Rabbit'
 
 import InvalidRabbitConfigException from '../Exceptions/InvalidRabbitConfigException'
 
-export class ConnectionManager {
+export default class ConnectionManager {
   /**
    * Whether the Connection has already been established
    */

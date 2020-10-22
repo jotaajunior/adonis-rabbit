@@ -6,7 +6,7 @@ import {
   RabbitManagerContract,
 } from '@ioc:Adonis/Addons/Rabbit'
 
-import { ConnectionManager } from '../ConnectionManager'
+import ConnectionManager from '../ConnectionManager'
 import Message from '../Messsage'
 import safeStringify from '../Utils/safeStringify'
 

@@ -1,6 +1,6 @@
 export { default as RabbitManager } from './src/RabbitManager'
 
-export { ConnectionManager } from './src/ConnectionManager'
+export { default as ConnectionManager } from './src/ConnectionManager'
 
 export { default as Message } from './src/Messsage'
 
