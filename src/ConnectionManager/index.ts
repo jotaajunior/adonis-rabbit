@@ -6,12 +6,12 @@ import InvalidRabbitConfigException from '../Exceptions/InvalidRabbitConfigExcep
 
 export default class ConnectionManager {
   /**
-   * Whether the Connection has already been established
+   * Whether the connection has already been established
    */
   public hasConnection: boolean = false
 
   /**
-   * The Connection
+   * The connection
    */
   private _connection: Connection
 
@@ -42,7 +42,7 @@ export default class ConnectionManager {
   /**
    * Returns the credentials
    *
-   * @param user The user
+   * @param user The username
    * @param password The password
    */
   private handleCredentials(
@@ -84,14 +84,14 @@ export default class ConnectionManager {
   }
 
   /**
-   * Returh the connection URL
+   * Returns the connection URL
    */
   public get url() {
     return `amqp://${this.credentials}${this.hostname}`
   }
 
   /**
-   * Returns the the Connectio
+   * Returns the connection
    */
   public async getConnection() {
     if (!this._connection) {
@@ -106,7 +106,7 @@ export default class ConnectionManager {
   }
 
   /**
-   * Closes the Connection
+   * Closes the connection
    */
   public async closeConnection() {
     if (this.hasConnection) {

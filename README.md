@@ -26,13 +26,13 @@ Please certify that the data in `.env` and `config/rabbit.ts` is correct.
 
 ## Usage
 
-Once the the Setup steps have been completed, you should be able to use Adonis RabbitMQ.
+Once the setup steps have been completed, you should be able to use Adonis RabbitMQ.
 
 ### Notes
 
 You don't need to create a connection or a channel, Adonis RabbitMQ will handle it automatically for you as soon as you invoke any publishing function.
 
-Anyway, you can still use `await Rabbit.getChannel()` to get direct access to the amqp's `Channel` instance, if the Channel doesn't exists, it'll be created.
+Anyway, you can still use `await Rabbit.getChannel()` to get direct access to the amqp's `Channel` instance, if the channel doesn't exist, it'll be created.
 
 You can also use `await Rabbit.getConnection()` to get direct access to the amqp's `Connection` instance. The connection will be established during the Adonis boot.
 
@@ -52,7 +52,7 @@ import Rabbit from '@ioc:Adonis/Addons/Rabbit'
 await Rabbit.assertQueue('myQueue')
 ```
 
-Assert the Queue is created.
+Assert the queue is created.
 
 Parameters:
 
@@ -65,12 +65,12 @@ Parameters:
 await Rabbit.assertExchange('myQueue', 'type')
 ```
 
-Assert the Exchange is created.
+Assert the exchange is created.
 
 Parameters:
 
-1. `queueName`: the name of the Queue
-2. `type`: the type of the Exchange
+1. `queueName`: the name of the queue
+2. `type`: the type of the exchange
 3. `options?`: the queue options
 
 #### `bindQueue()`
@@ -79,10 +79,10 @@ Parameters:
 await Rabbit.bindQueue('myQueue', 'myExchange', '')
 ```
 
-Binds a Queue and an Exchange
+Binds a queue and an exchange
 .
-1. `queueName`: the name of the Queue
-2. `exchangeName`: the name of the Exchange
+1. `queueName`: the name of the queue
+2. `exchangeName`: the name of the exchange
 3. `pattern?`: the pattern (default to `''`)
 
 
@@ -94,8 +94,8 @@ await Rabbit.sendToQueue('myQueue', 'content')
 
 Parameters:
 
-1. `queueName`: the name of the Queue
-2. `content`: the content to be send to the Queue
+1. `queueName`: the name of the queue
+2. `content`: the content to be send to the queue
 3. `options`: the options
 
 Notice that the `content` parameter don't need to be a Buffer, Adonis RabbitMQ will automatically convert it to a Buffer if it isn't already.
@@ -110,9 +110,9 @@ await Rabbit.sendToExchange('myExchange', 'myRoutingKey', 'content')
 
 Parameters:
 
-1. `exchangeName`: the name of the Exchange
+1. `exchangeName`: the name of the exchange
 2. `routingKey`: the routing key
-3. `content`: the content to be send to the Exchange
+3. `content`: the content to send to the exchange
 4. `options`: the options
 
 Notice that the `content` parameter doesn't need to be a Buffer, Adonis RabbitMQ will automatically convert it to a Buffer if it is'nt already.
@@ -128,7 +128,7 @@ await Rabbit.consumeFrom('myQueue', (message) => {
 })
 ```
 
-Consume a message from a queue.
+Consumes a message from a queue.
 
 1. `queueName`: the name of the queue
 2. `onMessage` the callback which will be executed on the message receive.
@@ -149,14 +149,14 @@ Acknowledges all the messages.
 await Rabbit.nackAll()
 ```
 
-Reject all the messages.
+Rejects all the messages.
 
 Parameters:
-1. `requeue?` adds the rejected messages to Queue again.
+1. `requeue?` adds the rejected messages to queue again.
 
 #### `closeChannel()`
 
-Closes the Channel.
+Closes the channel.
 
 
 #### `closeConnection()`
@@ -197,7 +197,7 @@ The message fields.
 message.properties
 ```
 
-The message properties
+The message properties.
 
 #### `ack()`
 
