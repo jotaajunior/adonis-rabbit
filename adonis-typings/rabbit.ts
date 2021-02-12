@@ -10,22 +10,22 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
 
   export interface RabbitManagerContract {
     /**
-     * If the Channel has been established
+     * If the channel has been established
      */
     hasChannel: boolean
 
     /**
-     * Returns the Connection
+     * Returns the connection
      */
     getConnection(): Promise<Connection>
 
     /**
-     * Returns the Channel
+     * Returns the channel
      */
     getChannel(): Promise<Channel>
 
     /**
-     * Creates a Queue if doesn't exists
+     * Creates a queue if doesn't exist
      *
      * @param queueName The name of the queue
      * @param options The options
@@ -36,7 +36,7 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
     ): Promise<Replies.AssertQueue>
 
     /**
-     * Send the message to the Queue
+     * Send the message to the queue
      *
      * @param queueName The name of the queue
      * @param content The content
@@ -49,9 +49,9 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
     ): Promise<boolean>
 
     /**
-     * Creates an Exchange if doesn't exists
+     * Creates an exchange if doesn't exist
      *
-     * @param exchangeName O nome do exchange
+     * @param exchangeName The exchange name
      * @param type The exchange type
      * @param content The content
      */
@@ -62,10 +62,10 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
     ): Promise<Replies.AssertExchange>
 
     /**
-     * Bind a Queue and an Exchange
+     * Binds a queue and an exchange
      *
-     * @param queueName The Queue name
-     * @param exchangeName The Exchange
+     * @param queueName The queue name
+     * @param exchangeName The exchange
      * @param pattern The pattern
      */
     bindQueue(
@@ -75,9 +75,9 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
     ): Promise<Replies.Empty>
 
     /**
-     * Envia a mensagem para um exchange
+     * Sends a message to an exchange
      *
-     * @param exchangeName O nome da exchange
+     * @param exchangeName The exchange name
      * @param routingKey A routing key
      * @param content The content
      */
@@ -88,22 +88,22 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
     ): Promise<boolean>
 
     /**
-     * Acknowledge all messages
+     * Acknowledges all messages
      */
     ackAll(): Promise<void>
 
     /**
-     * Reject all messages
+     * Rejects all messages
      *
      * @param requeue Adds back to the queue
      */
     nackAll(requeue?: boolean): void | Promise<void>
 
     /**
-     * Consome as mensagens de uma fila
+     * Consumes message from a queue
      *
-     * @param queueName O nome da fila
-     * @param onMessage O listener
+     * @param queueName The queue name
+     * @param onMessage The listener
      */
     consumeFrom<T extends object = any>(
       queueName: string,
@@ -111,33 +111,33 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
     ): Promise<Replies.Consume>
 
     /**
-     * Closes the Channel
+     * Closes the channel
      */
     closeChannel(): Promise<void>
 
     /**
-     * Closes the Connection
+     * Closes the connection
      */
     closeConnection(): Promise<void>
   }
   export interface MessageContract<T extends object = any> {
     /**
-     * Acknowledge the message
+     * Acknowledges the message
      *
-     * @param allUpTo Acknowledge all the messages up to this
+     * @param allUpTo Acknowledges all the messages up to this
      */
     ack(allUpTo?): void
 
     /**
      * Rejects the message
      *
-     * @param allUpTo Acknowledge all the messages up to this
+     * @param allUpTo Acknowledges all the messages up to this
      * @param requeue Adds back to the queue
      */
     nack(allUpTo?, requeue?): void
 
     /**
-     * Rejects the message. Equivalent to nack, but worker in older
+     * Rejects the message. Equivalent to nack, but work in older
      * versions of RabbitMQ, where nack does not
      *
      * @param requeue Adds back to the queue
@@ -174,22 +174,22 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
     user?: string
 
     /**
-   * The RabbitMQ password
-   *
-   * @example admin
-   */
+     * The RabbitMQ password
+     *
+     * @example supersecretpassword1234
+     */
     password?: string
 
     /**
-   * The RabbitMQ hostname
-   *
-   * @example localhost
-   */
+     * The RabbitMQ hostname
+     *
+     * @example localhost
+     */
     hostname: string
 
     /**
-   * The RabbitMQ port
-   */
+     * The RabbitMQ port
+     */
     port: number
   }
 

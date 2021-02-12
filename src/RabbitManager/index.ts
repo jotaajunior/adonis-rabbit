@@ -12,17 +12,17 @@ import safeStringify from '../Utils/safeStringify'
 
 export default class RabbitManager implements RabbitManagerContract {
   /**
-   * The Connection Manager
+   * The connection manager
    */
   private readonly connectionManager: ConnectionManager
 
   /**
-   * If the Channel has been established
+   * If the channel has been established
    */
   public hasChannel: boolean = false
 
   /**
-   * The Channel
+   * The channel
    */
   private _channel: Channel
 
@@ -31,7 +31,7 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Convert the content to a Buffer
+   * Converts the content to a Buffer
    *
    * @param content The content
    */
@@ -46,7 +46,7 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Returns the Connection
+   * Returns the connection
    */
   public async getConnection() {
     return this
@@ -55,7 +55,7 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Returns the Channel
+   * Returns the channel
    */
   public async getChannel() {
     const connection = await this
@@ -71,7 +71,7 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Creates a Queue if doesn't exists
+   * Creates a queue if doesn't exist
    *
    * @param queueName The name of the queue
    * @param options The options
@@ -86,7 +86,7 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Send the message to the Queue
+   * Sends the message to the queue
    *
    * @param queueName The name of the queue
    * @param content The content
@@ -103,9 +103,9 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Creates an Exchange if doesn't exists
+   * Creates an Exchange if doesn't exist
    *
-   * @param exchangeName O nome do exchange
+   * @param exchangeName The exchange name
    * @param type The exchange type
    * @param content The content
    */
@@ -120,10 +120,10 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Bind a Queue and an Exchange
+   * Binds a queue and an exchange
    *
-   * @param queueName The Queue name
-   * @param exchangeName The Exchange
+   * @param queueName The queue name
+   * @param exchangeName The exchange name
    * @param pattern The pattern
    */
   public async bindQueue(
@@ -137,9 +137,9 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Envia a mensagem para um exchange
+   * Sends a message to an exchange
    *
-   * @param exchangeName O nome da exchange
+   * @param exchangeName The exchange name
    * @param routingKey A routing key
    * @param content The content
    */
@@ -154,7 +154,7 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Acknowledge all messages
+   * Acknowledges all messages
    */
   public async ackAll() {
     const channel = await this.getChannel()
@@ -163,7 +163,7 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Reject all messages
+   * Rejects all messages
    *
    * @param requeue Adds back to the queue
    */
@@ -174,10 +174,10 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Consome as mensagens de uma fila
+   * Consumes messages from a queue
    *
-   * @param queueName O nome da fila
-   * @param onMessage O listener
+   * @param queueName The queue name
+   * @param onMessage The listener
    */
   public async consumeFrom<T extends object = any>(
     queueName: string,
@@ -192,7 +192,7 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Closes the Channel
+   * Closes the channel
    */
   public async closeChannel() {
     if (this.hasChannel) {
@@ -202,7 +202,7 @@ export default class RabbitManager implements RabbitManagerContract {
   }
 
   /**
-   * Closes the Connection
+   * Closes the connection
    */
   public async closeConnection() {
     await this
