@@ -74,10 +74,6 @@ export default class ConnectionManager {
       throw new InvalidRabbitConfigException('Missing RabbitMQ hostname')
     }
 
-    if (!port) {
-      throw new InvalidRabbitConfigException('Missing RabbitMQ port')
-    }
-
     return port
       ? `${hostname}:${port}`
       : hostname
