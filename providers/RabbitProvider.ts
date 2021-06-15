@@ -1,14 +1,15 @@
-import { IocContract } from '@adonisjs/fold'
 import { RabbitConfig, RabbitManagerContract } from '@ioc:Adonis/Addons/Rabbit'
+import { ApplicationContract } from '@ioc:Adonis/Core/Application'
 
 import RabbitManager from '../src/RabbitManager'
 
 export default class RabbitProvider {
-  constructor(protected container: IocContract) { }
+  constructor(protected app: ApplicationContract) { }
 
   public register() {
-    this.container.singleton('Adonis/Addons/Rabbit', () => {
+    this.app.container.singleton('Adonis/Addons/Rabbit', () => {
       const rabbitConfig = this
+        .app
         .container
         .use('Adonis/Core/Config')
         .get('rabbit', {} as RabbitConfig)
@@ -30,6 +31,7 @@ export default class RabbitProvider {
      * Gracefully closes the channel
      */
     this
+      .app
       .container
       .with(['Adonis/Addons/Rabbit'], (rabbit: RabbitManagerContract) => {
         rabbit
