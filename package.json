@@ -6,6 +6,14 @@
   "types": "build/adonis-typings/index.d.ts",
   "main": "build/providers/RabbitProvider.js",
   "license": "MIT",
+  "files": [
+    "build/adonis-typings",
+    "build/providers",
+    "build/templates",
+    "build/src",
+    "build/standalone.js",
+    "build/standalone.d.ts"
+  ],
   "scripts": {
     "build": "npm run copyfiles && tsc",
     "copyfiles": "copyfiles \"templates/**/*.txt\" build",
