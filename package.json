@@ -45,5 +45,8 @@
       "adonis-rabbit"
     ]
   },
+  "np": {
+    "message": "Releases v%s"
+  },
   "repository": "https://github.com/jotaajunior/adonis-rabbit.git"
 }
