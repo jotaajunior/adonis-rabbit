@@ -1,16 +1,11 @@
 import { Channel, ConsumeMessage } from 'amqplib'
-
 import { MessageContract } from '@ioc:Adonis/Addons/Rabbit'
-
 import NullMessageException from '../Exceptions/NullMessageException'
 
-export default class Message<T extends object = any> implements MessageContract {
+export default class Message<T> implements MessageContract {
   public message: ConsumeMessage
 
-  constructor(
-    private channel: Channel,
-    message: ConsumeMessage | null
-  ) {
+  constructor(private channel: Channel, message: ConsumeMessage | null) {
     if (message === null) {
       throw new NullMessageException('Message expected, received null.')
     }

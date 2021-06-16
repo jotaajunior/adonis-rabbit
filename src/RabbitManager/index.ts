@@ -1,11 +1,9 @@
 import { Channel, Options } from 'amqplib'
-
 import {
   MessageContract,
   RabbitConfig,
   RabbitManagerContract,
 } from '@ioc:Adonis/Addons/Rabbit'
-
 import ConnectionManager from '../ConnectionManager'
 import Message from '../Messsage'
 import safeStringify from '../Utils/safeStringify'
@@ -39,28 +37,22 @@ export default class RabbitManager implements RabbitManagerContract {
     return Buffer.isBuffer(content)
       ? content
       : Buffer.from(
-        typeof content === 'object'
-          ? safeStringify(content)
-          : content
-      )
+          typeof content === 'object' ? safeStringify(content) : content
+        )
   }
 
   /**
    * Returns the connection
    */
   public async getConnection() {
-    return this
-      .connectionManager
-      .getConnection()
+    return this.connectionManager.getConnection()
   }
 
   /**
    * Returns the channel
    */
   public async getChannel() {
-    const connection = await this
-      .connectionManager
-      .getConnection()
+    const connection = await this.connectionManager.getConnection()
 
     if (!this.hasChannel) {
       this.hasChannel = true
@@ -76,10 +68,7 @@ export default class RabbitManager implements RabbitManagerContract {
    * @param queueName The name of the queue
    * @param options The options
    */
-  public async assertQueue(
-    queueName: string,
-    options?: Options.AssertQueue
-  ) {
+  public async assertQueue(queueName: string, options?: Options.AssertQueue) {
     const channel = await this.getChannel()
 
     return channel.assertQueue(queueName, options)
@@ -205,8 +194,6 @@ export default class RabbitManager implements RabbitManagerContract {
    * Closes the connection
    */
   public async closeConnection() {
-    await this
-      .connectionManager
-      .closeConnection()
+    await this.connectionManager.closeConnection()
   }
 }

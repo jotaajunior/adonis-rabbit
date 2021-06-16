@@ -1,1 +1,1 @@
-export default class NullMessageException extends Error { }
+export default class NullMessageException extends Error {}

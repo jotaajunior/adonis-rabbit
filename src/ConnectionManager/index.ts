@@ -1,7 +1,5 @@
 import { connect, Connection } from 'amqplib'
-
 import { RabbitConfig } from '@ioc:Adonis/Addons/Rabbit'
-
 import InvalidRabbitConfigException from '../Exceptions/InvalidRabbitConfigException'
 
 export default class ConnectionManager {
@@ -25,9 +23,7 @@ export default class ConnectionManager {
    */
   private readonly hostname: string
 
-  constructor(
-    private readonly rabbitConfig: RabbitConfig
-  ) {
+  constructor(private readonly rabbitConfig: RabbitConfig) {
     this.credentials = this.handleCredentials(
       this.rabbitConfig.user,
       this.rabbitConfig.password
@@ -74,9 +70,7 @@ export default class ConnectionManager {
       throw new InvalidRabbitConfigException('Missing RabbitMQ hostname')
     }
 
-    return port
-      ? `${hostname}:${port}`
-      : hostname
+    return port ? `${hostname}:${port}` : hostname
   }
 
   /**
