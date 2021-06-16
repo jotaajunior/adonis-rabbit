@@ -1,32 +1,34 @@
 {
   "name": "adonis-rabbit",
   "description": "AdonisJS RabbitMQ provider",
-  "version": "0.0.21",
+  "version": "0.0.22-1",
   "author": "Jota Júnior <jjunior@protonmail.ch>",
   "types": "build/adonis-typings/index.d.ts",
   "main": "build/providers/RabbitProvider.js",
   "license": "MIT",
+  "files": [
+    "build/adonis-typings",
+    "build/providers",
+    "build/templates",
+    "build/src",
+    "build/standalone.js",
+    "build/standalone.d.ts"
+  ],
   "scripts": {
     "build": "npm run copyfiles && tsc",
     "copyfiles": "copyfiles \"templates/**/*.txt\" build",
     "lint": "eslint . --ext=.ts --fix"
   },
-  "peerDependencies": {
-    "@adonisjs/core": "5.0.0-preview-rc-1.12",
-    "@types/amqplib": "^0.5.14",
-    "amqplib": "^0.6.0"
-  },
   "devDependencies": {
-    "@adonisjs/core": "5.0.0-preview-rc-1.12",
-    "@adonisjs/fold": "^6.4.1",
+    "@adonisjs/core": "^5.1.8",
     "adonis-preset-ts": "^1.0.4",
     "copyfiles": "^2.4.0",
     "eslint": "^7.11.0",
     "eslint-plugin-adonis": "^1.0.15",
-    "pino-pretty": "^4.3.0",
-    "typescript": "^4.0.3",
-    "youch": "^2.1.1",
-    "youch-terminal": "^1.0.1"
+    "eslint-plugin-prettier": "^3.4.0",
+    "np": "^7.5.0",
+    "prettier": "^2.3.1",
+    "typescript": "^4.0.3"
   },
   "dependencies": {
     "@types/amqplib": "^0.5.14",
@@ -44,12 +46,15 @@
       "RABBITMQ_HOSTNAME": "localhost",
       "RABBITMQ_USER": "",
       "RABBITMQ_PASSWORD": "",
-      "RABBITMQ_PORT": "5672"
+      "RABBITMQ_PORT": ""
     },
     "types": "adonis-rabbit",
     "providers": [
       "adonis-rabbit"
     ]
+  },
+  "np": {
+    "message": "Releases v%s"
   },
   "repository": "https://github.com/jotaajunior/adonis-rabbit.git"
 }

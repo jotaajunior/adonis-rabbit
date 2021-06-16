@@ -1,16 +1,11 @@
 import { Channel, ConsumeMessage } from 'amqplib'
-
 import { MessageContract } from '@ioc:Adonis/Addons/Rabbit'
-
 import NullMessageException from '../Exceptions/NullMessageException'
 
-export default class Message<T extends object = any> implements MessageContract {
+export default class Message<T> implements MessageContract {
   public message: ConsumeMessage
 
-  constructor(
-    private channel: Channel,
-    message: ConsumeMessage | null
-  ) {
+  constructor(private $channel: Channel, message: ConsumeMessage | null) {
     if (message === null) {
       throw new NullMessageException('Message expected, received null.')
     }
@@ -28,7 +23,7 @@ export default class Message<T extends object = any> implements MessageContract 
    * @param allUpTo Acknowledge all the messages up to this
    */
   public ack(allUpTo = false) {
-    this.channel.ack(this.message, allUpTo)
+    this.$channel.ack(this.message, allUpTo)
   }
 
   /**
@@ -38,7 +33,7 @@ export default class Message<T extends object = any> implements MessageContract 
    * @param requeue Adds back to the queue
    */
   public nack(allUpTo = false, requeue = true) {
-    this.channel.nack(this.message, allUpTo, requeue)
+    this.$channel.nack(this.message, allUpTo, requeue)
   }
 
   /**
@@ -48,7 +43,7 @@ export default class Message<T extends object = any> implements MessageContract 
    * @param requeue Adds back to the queue
    */
   public reject(requeue = true) {
-    this.channel.reject(this.message, requeue)
+    this.$channel.reject(this.message, requeue)
   }
 
   /**

@@ -1,12 +1,10 @@
-# Adonis RabbitMQ
+# adonis-rabbit
 
-RabbitMQ provider for Adonis v5, it's a wrapper using [amqplib](https://github.com/squaremo/amqp.node) as core.
+`adonis-rabbit` is a RabbitMQ provider for [Adonis](https://github.com/adonisjs/core).
 
-## Setup
+## Getting Started
 
-### Install
-
-Install `adonis-rabbit`.
+Instal `adonis-rabbit`:
 
 ```
 yarn add adonis-rabbit
@@ -18,25 +16,66 @@ Then:
 node ace invoke adonis-rabbit
 ```
 
-### Configuration
+This will create `config/rabbit.ts` and add the following fields to your `.env`:
 
-After installing and invoking Adonis RabbitMQ, your `tsconfig.json`, `.adonisrc.json`, `.env` and `.env.example` will be modified. Also, `config/rabbit.ts` will be created.
+```
+RABBITMQ_HOSTNAME=
+RABBITMQ_USER=
+RABBOTMQ_PASSWORD=
+RABBITMQ_PORT=
+```
 
-Please certify that the data in `.env` and `config/rabbit.ts` is correct.
+Make sure to set the correct values to the enviroment variables so `adonis-rabbit` can connect.
 
-## Usage
+## Basic Usage
 
-Once the setup steps have been completed, you should be able to use Adonis RabbitMQ.
+### Sending messages to an queue
 
-### Notes
+```ts
+import Rabbit from '@ioc:Adonis/Addons/Rabbit'
+import Route from '@ioc:Adonis/Core/Route'
 
-You don't need to create a connection or a channel, Adonis RabbitMQ will handle it automatically for you as soon as you invoke any publishing function.
+Route.get('/', async () => {
+  // Ensures the queue exists
+  await Rabbit.assertQueue('my_queue')
 
-Anyway, you can still use `await Rabbit.getChannel()` to get direct access to the amqp's `Channel` instance, if the channel doesn't exist, it'll be created.
+  // Sends a message to the queue
+  await Rabbit.sendToQueue('my_queue', 'This message was sent by adonis-rabbit')
+})
+```
 
-You can also use `await Rabbit.getConnection()` to get direct access to the amqp's `Connection` instance. The connection will be established during the Adonis boot.
+### Subscribing
 
-> This documentation is complementary to the [Amqp's documentation](http://www.squaremobius.net/amqp.node/). Please read their documentation first.
+Notice doesn't really makes sense to subscribe to an queue inside a controller, usually this is done through a preload file.
+
+### Creating a preload file
+
+1. In the CLI, type: `node ace make:prldfile rabbit`
+2. Select `( ) During HTTP server`
+
+This is will create `start/rabbit.ts`.
+
+### Listening to an queue
+
+Inside `start/rabbit.ts`:
+
+```ts
+import Rabbit from '@ioc:Adonis/Addons/Rabbit'
+
+async function listen() {
+  await Rabbit.assertQueue('my_queue')
+
+  await Rabbit.consumeFrom('my_queue', (message) => {
+    console.log(message.content)
+  })
+}
+
+listen()
+```
+
+This will log every message sent to my queue `my_queue`.
+
+## Documentation
 
 ### RabbitMQ Manager
 
@@ -81,10 +120,10 @@ await Rabbit.bindQueue('myQueue', 'myExchange', '')
 
 Binds a queue and an exchange
 .
+
 1. `queueName`: the name of the queue
 2. `exchangeName`: the name of the exchange
 3. `pattern?`: the pattern (default to `''`)
-
 
 #### `sendToQueue()`
 
@@ -133,9 +172,9 @@ Consumes a message from a queue.
 1. `queueName`: the name of the queue
 2. `onMessage` the callback which will be executed on the message receive.
 
-The `onMessage` callback receives a <a href="#message">`Message`</a> instance as parameter. 
+The `onMessage` callback receives a <a href="#message">`Message`</a> instance as parameter.
 
-#### `ackAll()`
+#### `await ackAll()`
 
 ```ts
 await Rabbit.ackAll()
@@ -143,7 +182,7 @@ await Rabbit.ackAll()
 
 Acknowledges all the messages.
 
-#### `nackAll()`
+#### `await nackAll()`
 
 ```ts
 await Rabbit.nackAll()
@@ -152,12 +191,36 @@ await Rabbit.nackAll()
 Rejects all the messages.
 
 Parameters:
+
 1. `requeue?` adds the rejected messages to queue again.
+
+#### `getConnection()`
+
+Retrieves the amqplib's Connection instance. If there`s not a connection, it'll be created.
+
+```ts
+await Rabbit.getConnection()
+```
+
+#### `getConnection()`
+
+Retrieves the amqplib's Connection instance. If there`s not a connection, it'll be created.
+
+```ts
+await Rabbit.getConnection()
+```
+
+#### `getChannel()`
+
+Retrieves the amqplib's Channel instance. If there's not a connection, it'll be created. If there`s not a channel, it'll be created too.
+
+```ts
+await Rabbit.getChannel()
+```
 
 #### `closeChannel()`
 
 Closes the channel.
-
 
 #### `closeConnection()`
 
@@ -166,6 +229,26 @@ Closes the connection.
 ---
 
 ### Message
+
+When consuming messages through [`consumeFrom`](https://github.com/jotaajunior/adonis-rabbit#consumefrom), you'll receive in the callback a Message instance.
+
+This slightly different from amqplib approach. For example:
+
+```ts
+Rabbit.consumeFrom('queue', (message) => {
+  // Acknowledges the message
+  message.ack()
+
+  // Rejects the message
+  message.reject()
+
+  // The message content
+  console.log(message.content)
+
+  // If you're expecting a JSON, this will return the parsed message
+  console.log(message.jsonContent)
+})
+```
 
 #### `content`
 
@@ -218,6 +301,7 @@ message.nack()
 Rejects the message.
 
 Parameters:
+
 1. `allUpTo?` rejects all the messages up to this.
 1. `requeue?` adds the rejected messages to Queue again.
 
@@ -229,8 +313,8 @@ message.nack()
 
 Rejects the message, equivalent to `nack`, but works in older versions of RabbitMQ where `nack` does not.
 
-
 Parameters:
+
 1. `requeue?` adds the rejected messages to Queue again.
 
 ## Roadmap

@@ -1,1 +1,1 @@
-export default class InvalidRabbitConfigException extends Error { }
+export default class InvalidRabbitConfigException extends Error {}

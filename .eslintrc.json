@@ -2,7 +2,11 @@
   "extends": [
     "plugin:adonis/typescriptApp"
   ],
+  "plugins": [
+    "prettier"
+  ],
   "rules": {
-    "@typescript-eslint/space-before-function-paren": "off"
+    "@typescript-eslint/space-before-function-paren": "off",
+    "@typescript-eslint/indent": "off"
   }
 }
