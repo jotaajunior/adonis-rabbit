@@ -4,13 +4,11 @@ import { ApplicationContract } from '@ioc:Adonis/Core/Application'
 import RabbitManager from '../src/RabbitManager'
 
 export default class RabbitProvider {
-  constructor(protected app: ApplicationContract) { }
+  constructor(protected app: ApplicationContract) {}
 
   public register() {
     this.app.container.singleton('Adonis/Addons/Rabbit', () => {
-      const rabbitConfig = this
-        .app
-        .container
+      const rabbitConfig = this.app.container
         .use('Adonis/Core/Config')
         .get('rabbit', {} as RabbitConfig)
 
@@ -27,16 +25,10 @@ export default class RabbitProvider {
   }
 
   public async shutdown() {
-    /**
-     * Gracefully closes the channel
-     */
-    this
-      .app
-      .container
-      .with(['Adonis/Addons/Rabbit'], (rabbit: RabbitManagerContract) => {
-        rabbit
-          .closeChannel()
-          .then(() => rabbit.closeConnection())
-      })
+    const Rabbit: RabbitManagerContract = this.app.container.use(
+      'Adonis/Addons/Rabbit'
+    )
+    await Rabbit.closeChannel()
+    await Rabbit.closeConnection()
   }
 }
