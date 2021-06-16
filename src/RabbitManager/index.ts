@@ -175,7 +175,7 @@ export default class RabbitManager implements RabbitManagerContract {
     const channel = await this.getChannel()
 
     return channel.consume(queueName, (message) => {
-      const messageInstance = new Message(channel, message)
+      const messageInstance = new Message<T>(channel, message)
       onMessage(messageInstance)
     })
   }
