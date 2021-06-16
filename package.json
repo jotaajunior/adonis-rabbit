@@ -11,14 +11,8 @@
     "copyfiles": "copyfiles \"templates/**/*.txt\" build",
     "lint": "eslint . --ext=.ts --fix"
   },
-  "peerDependencies": {
-    "@adonisjs/core": "5.0.0-preview-rc-1.12",
-    "@types/amqplib": "^0.5.14",
-    "amqplib": "^0.6.0"
-  },
   "devDependencies": {
-    "@adonisjs/core": "5.0.0-preview-rc-1.12",
-    "@adonisjs/fold": "^6.4.1",
+    "@adonisjs/core": "^5.1.8",
     "adonis-preset-ts": "^1.0.4",
     "copyfiles": "^2.4.0",
     "eslint": "^7.11.0",
@@ -44,7 +38,7 @@
       "RABBITMQ_HOSTNAME": "localhost",
       "RABBITMQ_USER": "",
       "RABBITMQ_PASSWORD": "",
-      "RABBITMQ_PORT": "5672"
+      "RABBITMQ_PORT": ""
     },
     "types": "adonis-rabbit",
     "providers": [
