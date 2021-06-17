@@ -4,7 +4,7 @@ import {
   RabbitConfig,
   RabbitManagerContract,
 } from '@ioc:Adonis/Addons/Rabbit'
-import ConnectionManager from '../ConnectionManager'
+import RabbitConnection from '../RabbitConnection'
 import Message from '../Messsage'
 import safeStringify from '../Utils/safeStringify'
 
@@ -12,7 +12,7 @@ export default class RabbitManager implements RabbitManagerContract {
   /**
    * The connection manager
    */
-  private readonly connectionManager: ConnectionManager
+  private readonly rabbitConnection: RabbitConnection
 
   /**
    * If the channel has been established
@@ -22,10 +22,10 @@ export default class RabbitManager implements RabbitManagerContract {
   /**
    * The channel
    */
-  private _channel: Channel
+  private $channel: Channel
 
   constructor(rabbitConfig: RabbitConfig) {
-    this.connectionManager = new ConnectionManager(rabbitConfig)
+    this.rabbitConnection = new RabbitConnection(rabbitConfig)
   }
 
   /**
@@ -45,21 +45,21 @@ export default class RabbitManager implements RabbitManagerContract {
    * Returns the connection
    */
   public async getConnection() {
-    return this.connectionManager.getConnection()
+    return this.rabbitConnection.getConnection()
   }
 
   /**
    * Returns the channel
    */
   public async getChannel() {
-    const connection = await this.connectionManager.getConnection()
+    const connection = await this.rabbitConnection.getConnection()
 
     if (!this.hasChannel) {
       this.hasChannel = true
-      this._channel = await connection.createChannel()
+      this.$channel = await connection.createChannel()
     }
 
-    return this._channel
+    return this.$channel
   }
 
   /**
@@ -185,7 +185,7 @@ export default class RabbitManager implements RabbitManagerContract {
    */
   public async closeChannel() {
     if (this.hasChannel) {
-      await this._channel.close()
+      await this.$channel.close()
       this.hasChannel = false
     }
   }
@@ -194,6 +194,6 @@ export default class RabbitManager implements RabbitManagerContract {
    * Closes the connection
    */
   public async closeConnection() {
-    await this.connectionManager.closeConnection()
+    await this.rabbitConnection.closeConnection()
   }
 }
