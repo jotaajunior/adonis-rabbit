@@ -192,7 +192,7 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
      */
     port?: number
 
-    vhost?: string
+    vhost: string
   }
 
   const Rabbit: RabbitManagerContract
