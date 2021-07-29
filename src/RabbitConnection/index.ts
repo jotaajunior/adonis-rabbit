@@ -23,6 +23,8 @@ export default class RabbitConnection {
    */
   private readonly $hostname: string
 
+  private readonly $vhost: string
+
   constructor(private readonly rabbitConfig: RabbitConfig) {
     this.$credentials = this.handleCredentials(
       this.rabbitConfig.user,
@@ -33,6 +35,8 @@ export default class RabbitConnection {
       this.rabbitConfig.hostname,
       this.rabbitConfig.port
     )
+
+    this.$vhost = this.rabbitConfig.vhost
   }
 
   /**
@@ -77,7 +81,7 @@ export default class RabbitConnection {
    * Returns the connection URL
    */
   public get url() {
-    return `amqp://${this.$credentials}${this.$hostname}`
+    return `amqp://${this.$credentials}${this.$hostname}/${this.$vhost}`
   }
 
   /**
