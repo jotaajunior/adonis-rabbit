@@ -23,6 +23,7 @@ RABBITMQ_HOSTNAME=
 RABBITMQ_USER=
 RABBOTMQ_PASSWORD=
 RABBITMQ_PORT=
+RABBITMQ_PROTOCOL= "amqp://" //or ampqs 
 ```
 
 Make sure to set the correct values to the enviroment variables so `adonis-rabbit` can connect.
