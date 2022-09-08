@@ -33,6 +33,13 @@ export default class RabbitConnection {
       this.rabbitConfig.hostname,
       this.rabbitConfig.port
     )
+    this.$hostname = this.handleHostname(
+      this.rabbitConfig.hostname,
+      this.rabbitConfig.port
+    )
+    this.$protocol = this.handleProtocol(
+      this.rabbitConfig.protocol
+    ); 
   }
 
   /**
@@ -72,12 +79,27 @@ export default class RabbitConnection {
 
     return port ? `${hostname}:${port}` : hostname
   }
+  
+  /**
+   * Custom protocol
+   *
+   * @param protocol
+   */
+  private handleProtocol(
+    protocol: RabbitConfig['protocol'],
+  ) {
+    if (!protocol) {
+      protocol = "amqp://"
+    }
+
+    return protocol
+  }
 
   /**
    * Returns the connection URL
    */
   public get url() {
-    return `amqp://${this.$credentials}${this.$hostname}`
+    return `${this.$protocol}${this.$credentials}${this.$hostname}`
   }
 
   /**
