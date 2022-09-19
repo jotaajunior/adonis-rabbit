@@ -1,7 +1,7 @@
 {
   "name": "adonis-rabbit",
   "description": "AdonisJS RabbitMQ provider",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Jota Júnior <jjunior@protonmail.ch>",
   "types": "build/adonis-typings/index.d.ts",
   "main": "build/providers/RabbitProvider.js",
@@ -47,7 +47,7 @@
       "RABBITMQ_USER": "",
       "RABBITMQ_PASSWORD": "",
       "RABBITMQ_PORT": "",
-      "RABIITMQ_PROTOCOL":"ampq://" 
+      "RABIITMQ_PROTOCOL": "ampq://"
     },
     "types": "adonis-rabbit",
     "providers": [
