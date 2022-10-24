@@ -1,0 +1,12 @@
+name: secure-build-actions
+run-name: ${{ github.actor }} running secure-build-actions
+on: [push]
+jobs:
+  run-build-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          node-version: '16'
+      - run: npm run lint
+      - run: npm run build
