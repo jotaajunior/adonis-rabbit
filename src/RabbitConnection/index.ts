@@ -22,6 +22,11 @@ export default class RabbitConnection {
    * The hostname
    */
   private readonly $hostname: string
+  
+  /**
+   * The protocol
+   */
+  private readonly $protocol: string
 
   constructor(private readonly rabbitConfig: RabbitConfig) {
     this.$credentials = this.handleCredentials(
