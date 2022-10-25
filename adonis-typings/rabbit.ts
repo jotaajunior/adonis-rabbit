@@ -191,6 +191,13 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
      * The RabbitMQ port
      */
     port?: number
+
+    /**
+     * The RabbitMQ protocol
+     *
+     * @default "amqp"
+     */
+    protocol?: string
   }
 
   const Rabbit: RabbitManagerContract

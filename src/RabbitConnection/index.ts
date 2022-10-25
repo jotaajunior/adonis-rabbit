@@ -23,6 +23,11 @@ export default class RabbitConnection {
    */
   private readonly $hostname: string
 
+  /**
+   * The protocol
+   */
+  private readonly $protocol: string
+
   constructor(private readonly rabbitConfig: RabbitConfig) {
     this.$credentials = this.handleCredentials(
       this.rabbitConfig.user,
@@ -33,13 +38,13 @@ export default class RabbitConnection {
       this.rabbitConfig.hostname,
       this.rabbitConfig.port
     )
+
     this.$hostname = this.handleHostname(
       this.rabbitConfig.hostname,
       this.rabbitConfig.port
     )
-    this.$protocol = this.handleProtocol(
-      this.rabbitConfig.protocol
-    ); 
+
+    this.$protocol = this.handleProtocol(this.rabbitConfig.protocol)
   }
 
   /**
@@ -79,17 +84,15 @@ export default class RabbitConnection {
 
     return port ? `${hostname}:${port}` : hostname
   }
-  
+
   /**
    * Custom protocol
    *
    * @param protocol
    */
-  private handleProtocol(
-    protocol: RabbitConfig['protocol'],
-  ) {
+  private handleProtocol(protocol: RabbitConfig['protocol']) {
     if (!protocol) {
-      protocol = "amqp://"
+      protocol = 'amqp://'
     }
 
     return protocol
