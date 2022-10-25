@@ -102,7 +102,7 @@ export default class RabbitConnection {
    * Returns the connection URL
    */
   public get url() {
-    return `${this.$protocol}${this.$credentials}${this.$hostname}`
+    return [this.$protocol, this.$credentials, this.$hostname].join('')
   }
 
   /**
@@ -110,11 +110,7 @@ export default class RabbitConnection {
    */
   public async getConnection() {
     if (!this.$connection) {
-      try {
-        this.$connection = await connect(this.url)
-      } catch (error) {
-        throw error
-      }
+      this.$connection = await connect(this.url)
     }
 
     return this.$connection
