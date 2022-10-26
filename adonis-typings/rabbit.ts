@@ -190,14 +190,14 @@ declare module '@ioc:Adonis/Addons/Rabbit' {
     /**
      * The RabbitMQ port
      */
-    port?: number    
-    
+    port?: number
+
     /**
      * The RabbitMQ protocol
-     * 
-     * @example amqp://
+     *
+     * @default "amqp"
      */
-     protocol: string
+    protocol?: string
   }
 
   const Rabbit: RabbitManagerContract

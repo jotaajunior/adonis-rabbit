@@ -28,6 +28,11 @@ export default class RabbitConnection {
    */
   private readonly $protocol: string
 
+  /**
+   * The protocol
+   */
+  private readonly $protocol: string
+
   constructor(private readonly rabbitConfig: RabbitConfig) {
     this.$credentials = this.handleCredentials(
       this.rabbitConfig.user,
@@ -38,13 +43,13 @@ export default class RabbitConnection {
       this.rabbitConfig.hostname,
       this.rabbitConfig.port
     )
+
     this.$hostname = this.handleHostname(
       this.rabbitConfig.hostname,
       this.rabbitConfig.port
     )
-    this.$protocol = this.handleProtocol(
-      this.rabbitConfig.protocol
-    ); 
+
+    this.$protocol = this.handleProtocol(this.rabbitConfig.protocol)
   }
 
   /**
@@ -84,17 +89,15 @@ export default class RabbitConnection {
 
     return port ? `${hostname}:${port}` : hostname
   }
-  
+
   /**
    * Custom protocol
    *
    * @param protocol
    */
-  private handleProtocol(
-    protocol: RabbitConfig['protocol'],
-  ) {
+  private handleProtocol(protocol: RabbitConfig['protocol']) {
     if (!protocol) {
-      protocol = "amqp://"
+      protocol = 'amqp://'
     }
 
     return protocol
@@ -104,7 +107,7 @@ export default class RabbitConnection {
    * Returns the connection URL
    */
   public get url() {
-    return `${this.$protocol}${this.$credentials}${this.$hostname}`
+    return [this.$protocol, this.$credentials, this.$hostname].join('')
   }
 
   /**
@@ -112,11 +115,7 @@ export default class RabbitConnection {
    */
   public async getConnection() {
     if (!this.$connection) {
-      try {
-        this.$connection = await connect(this.url)
-      } catch (error) {
-        throw error
-      }
+      this.$connection = await connect(this.url)
     }
 
     return this.$connection
