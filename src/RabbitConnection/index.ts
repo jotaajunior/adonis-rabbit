@@ -112,9 +112,11 @@ export default class RabbitConnection {
   public async getConnection() {
     if (!this.$connection) {
       if (!this.$connectionPromise) {
-        this.$connectionPromise = connect(this.url);
+        this.$connectionPromise = connect(
+          this.url
+        ) as unknown as Promise<Connection>
       }
-      this.$connection = await this.$connectionPromise;
+      this.$connection = await this.$connectionPromise
     }
 
     return this.$connection
