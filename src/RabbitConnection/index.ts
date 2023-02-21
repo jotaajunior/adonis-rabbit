@@ -12,6 +12,7 @@ export default class RabbitConnection {
    * The connection
    */
   private $connection: Connection
+  private $connectionPromise: Promise<Connection>
 
   /**
    * The credentials
@@ -110,7 +111,12 @@ export default class RabbitConnection {
    */
   public async getConnection() {
     if (!this.$connection) {
-      this.$connection = await connect(this.url)
+      if (!this.$connectionPromise) {
+        this.$connectionPromise = connect(
+          this.url
+        ) as unknown as Promise<Connection>
+      }
+      this.$connection = await this.$connectionPromise
     }
 
     return this.$connection
