@@ -57,7 +57,8 @@ export default class RabbitManager implements RabbitManagerContract {
 
     if (!this.hasChannel || !this.$channel) {
       if (!this.$channelPromise) {
-        this.$channelPromise = connection.createChannel()
+        this.$channelPromise =
+          connection.createChannel() as unknown as Promise<Channel>
       }
       this.$channel = await this.$channelPromise
       this.hasChannel = true
