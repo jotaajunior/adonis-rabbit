@@ -22,6 +22,7 @@ export default class RabbitManager implements RabbitManagerContract {
   /**
    * The channel
    */
+  private $channelPromise: Promise<Channel>
   private $channel: Channel
 
   constructor(rabbitConfig: RabbitConfig) {
@@ -54,9 +55,12 @@ export default class RabbitManager implements RabbitManagerContract {
   public async getChannel() {
     const connection = await this.rabbitConnection.getConnection()
 
-    if (!this.hasChannel) {
+    if (!this.hasChannel || !this.$channel) {
+      if (!this.$channelPromise) {
+        this.$channelPromise = connection.createChannel()
+      }
+      this.$channel = await this.$channelPromise
       this.hasChannel = true
-      this.$channel = await connection.createChannel()
     }
 
     return this.$channel
@@ -184,7 +188,7 @@ export default class RabbitManager implements RabbitManagerContract {
    * Closes the channel
    */
   public async closeChannel() {
-    if (this.hasChannel) {
+    if (this.hasChannel && this.$channel) {
       await this.$channel.close()
       this.hasChannel = false
     }
