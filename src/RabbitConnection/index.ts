@@ -23,7 +23,7 @@ export default class RabbitConnection {
    * The hostname
    */
   private readonly $hostname: string
-
+  
   /**
    * The protocol
    */
