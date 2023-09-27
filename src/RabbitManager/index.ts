@@ -136,15 +136,17 @@ export default class RabbitManager implements RabbitManagerContract {
    * @param exchangeName The exchange name
    * @param routingKey A routing key
    * @param content The content
+   * @param options The publish options
    */
   public async sendToExchange(
     exchangeName: string,
     routingKey: string,
-    content: any
+    content: any,
+    options?: Options.Publish
   ) {
     const channel = await this.getChannel()
 
-    return channel.publish(exchangeName, routingKey, this.toBuffer(content))
+    return channel.publish(exchangeName, routingKey, this.toBuffer(content), options)
   }
 
   /**
